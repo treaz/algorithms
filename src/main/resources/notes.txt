@@ -1,0 +1,385 @@
+1) Insertion sort
+2) Merge sort (divide and conquer algos)
+3) Max contiguous subsequence
+4) multiplying 2 matrixes is fastest using Coppersmith and Winograd, but it shouldonly be used for huge matrixes, otherwise Strassen works.
+5) Randomized algos (randomize the input to be able to give an average time estimate) : randomly permutting array (give prios to inputs, sort based on prrios) RANDOMIZE-IN-PLACE (move every elem to random place in the array)
+6) Recursive power of a number is done by divide et impera.
+7) You have a binary tree and you want to map it to a grip without overlapping the edges. (vlsi integration). Naive: just put all the nodes on the grid. (area= heigh*width) Obviously not optimal.
+Recursive: instead of making a binary tree create a H-structure :)
+10) COmputing the change that a number of people have in a room have their bday on the same day.
+How many balls must we toss until every bin contains at least one ball?
+Suppose you flip a fair coinntimes. What is the longest streak of consecutive heads that you expect to see? The answer is lg(n), as the following analysis shows.
+11) Heapsort (uses heaps = ordered binary tree; min/max heaps depends if the minimum or max is the root of the tree). min heaps usually implements priority queues.
+12) Quicksort -> array, pivot; start with 2 empty arrays, puts all the elements in them based on the value compared to pivot (small elems in left, big elems in right). Then it calls quicksort on each of the subarrays.
+13)  Sorting in linear time (not by comparison): count sort, radix sort, bucket sort.
+14) Taking it a step further, the order statistics (the position of the element that is bigger than x elems) can be computed recursively by using a partitioning logic (see randomized select). 
+Or a select in which you break the array into 5 elems subarrays and you calculate the median there and then calculate the median of medians. 
+But it is faster with a red-black tree, see 19. 
+
+http://docs.oracle.com/javase/6/docs/technotes/guides/collections/overview.html
+15) Basic data structures: stack, queue, linked list.
+16) Hashtables puts the elems in bukes according to their hash code. If 2 hash codes coincide, a linked list is created for that hashcode( Collision are resolved by chaining).
+Hash functions: division method (we map a key k into one of m slots by taking the remainder of k divided by m), multiplication method (multiply k by a number between 0 and 1, take the fractional part and multiply it by m. 
+Floor the result, that is the hash. Universal hashing -> an algorithm chooses the hashing function randomly.
+Perfecct hashing means that the keys in the hashtable do not change anymore.
+17) Binary search trees (a binary tree in which left child<parent<right child, and this is valid for all nodes) inorder tree walk = first print left subtree, print root, print right subtree.
+searching in a BST (given a pointer to the root)
+18) Red black tree (TreeMap) : a balanced binary search tree. root is black, leaves are black, red node => black leaves; from every node, the number of black nodes to all the leaves is equal.
+When doing insert delete, you must use rotation p.313 (left of right, where 2 nodes rotate around they link) so the red-black tree will still work.
+Insertion is done basically as the bst insert+a recoloring procedure (which is quite complex). Go down tree and add elem where needed and then go up tree and change colors as needed. 
+Deleting an elem is obviously a lot harder than for a bst.
+AVL trees & Treaps @p354
+
+19) order-statistic tree (a red/black tree with size information): 
+Retrieving an element with a given rank (start from the root, compare rank with leftChild.size+1. If less, call method recursively passing the leftChild and rank as args. If more, call method recursively passing the rightchild and rank-(leftChild.size+1). If equal elements found.
+Determining the rank of an element; (init=the size of the left child+1; start going toward the root from the init elem, if the elem is a right child then add to the rank parent.left.size; stop when you reach the root) 
+the size attribute is very important and has to maintained: 
+	when adding (while going down the tree just add+1 to passed nodes; when making the rotation, the node that is coming down will have the size of the node that is the pivot; the pivot size=pivot.left.size+pivot.right.size+1
+	when deleting: from the deleted node go up and decrease the size by one; the rotation as treated as above.
+20) Augmenting a data structure
+	1. Choose an underlying data structure.
+	2. Determine additional information to maintain in the underlying data structure.
+	3. Verify that we can maintain the additional information for the basic modifying operations on the underlying data structure.
+	4. Develop new operations. 
+	
+An interval tree is a red-black tree that maintains a dynamic set of elements, with each element x containing an intervalx:int.
+The interesting function is the interval search (argument is an interval; start from root. Check overlap with current node (this is root at the beginning). 
+	If not overlapping. The max of leftchild is compared with interval.low. If lower => go to left child. Else go to right child.  
+	Check overlapping, go on with the comparison.
+	
+21) Dynamic programming (top-down memoization with recursive calls; bottoms-up) -> requirements: optimal substructure + overlapping problems.
+Recall that a problem exhibits optimal substructure if an optimal solution to the problem contains within it optimal solutions to subproblems (the subproblems must be independent).
+When a recursive algo-rithm revisits the same problem repeatedly, we say that the optimization problem has overlapping subproblems. 
+At the end of 379 you can find what is the mindset behind this.
+1. Characterize the structure of an optimal solution.
+2. Recursively define the value of an optimal solution.
+3. Compute the value of an optimal solution, typically in a bottom-up fashion.
+4. Construct an optimal solution from computed information.
+
+22) The rod cutting problem. We say that the rod-cutting problem exhibits optimal substructure: optimal solutions to a problem incorporate optimal solutions to related subproblems, which we may solve independently.
+Note that just computing an optimal solution is generally not enough, you also want to know what steps are involved in that solution.
+23) Matrix chain multiplication (with full parantherization). The logic for displaying the paranthesis is explained in imag0715.
+
+24) DP -> to discover an optimal substructure. 
+First prove that the problem can be broken down into subproblems (by making a choice).
+Consider this choice optimal.
+Find the resulting subproblems and think about how to characterize them. (they need to be similar to the original problem).
+Show that the subproblems must also be optimal (this is trivial). You do so by supposing that each of the subproblem solutions is not
+	optimal and then deriving a contradiction. In particular, by “cutting out” the nonoptimal solution to each subproblem and “pasting in” the optimal one, 
+	you show that you can get a better solution to the original problem, thus contradicting your supposition that you already had an optimal solution.
+Optimal substructure is only possible if you have independent subproblems (We mean that the solution to one subproblem does not affect/restrict the solution to another subproblem of the same problem.
+25) DP -> overlapping subproblems -> a recursive algo revisits the same problems repeatedly.
+26) LCS problem
+27) Optimal binary search tree. The nodes are sorted according to frequency.
+28) THere are a lot of problems at the end of the DPchapter. THey are solved on this page.  http://ripcrixalis.blog.com/2011/02/08/clrs-chapter-15/
+29) Greedy algorithms. In the activity-selection problem, we wish to select a maximum-size subset (most activities) of mutually compatible activities.
+Greedy algorithms typically have this top-down design: make a choice and then solve a subproblem, rather than the bottom-up technique of solving subproblems before making a choice.
+
+30) How to think greedy. 
+1. Cast the optimization problem as one in which we make a choice and are left with one subproblem to solve.
+2. Prove that there is always an optimal solution to the original problem that makes the greedy choice, so that the greedy choice is always safe.
+3. Demonstrate optimal substructure by showing that, having made the greedy choice, what remains is a subproblem with the property that if we combine an 
+optimal solution to the subproblem with the greedy choice we have made, we arrive at an optimal solution to the original problem.
+
+Greedy choice = when we are considering which choice to make, we make the choice that looks best in the current problem, without considering results from subproblems.
+Usually preprocessing the input makes the greedy algo to be faster.
+Optimal substructure...All we really need to do is argue that an optimal solution to the subproblem, combined with the greedy choice already made, yields an optimal
+solution to the original problem.
+Greedy VS DP: when you have a single constraint then use greedy. Otherwise (more than 2 constraints) use DP.
+
+31) B-trees (used in databases): a rooted tree with 
+Every node x has the following attributes: has n keys sorted in increasing order; x.leaf = false if x is a leaf, true if x=node
+Every node x has n+1 children; the first child of the node has keys smaller that the first key of the node, which are smaller than the second node and so on.
+All leaves have the same depth.
+Minimum degree of the tree: t>=2 keys; max tree size 2t-1 keys. A 2-3-4 tree is a b-tree with t=2.
+Insertion is complex but I've implemented it, deletion (p 500 bottom) is even harder. 
+
+32) Fibonacci heaps. Fibonacci heaps are especially desirable when the number of EXTRACT-MIN and DELETE operations is small relative to the number of other operations performed. Or when union is done.
+A Fibonacci heap is a collection of rooted trees that are min-heap ordered.That is, each tree obeys themin-heap property: the key of a node is greater than or equal to the key of its parent.
+each node x contains a pointer x.p to its parent and a pointer x:child to only one of its children. The children of x are linked together in a circular, doubly linked list, 
+which we call the child list of x. Each child y in a child list has pointers y:left and y:right that point to y’s left and right siblings.
+We access a given Fibonacci heapHby a pointerH:minto the root of a tree containing the minimum key; we call this node the minimum node of the Fibonacci heap.
+the degree of the node=number of children.
+The roots of all the trees in a Fibonacci heap are linked together using their left and right pointers into a circular, doubly linked list called the root list
+Inserting a new node in the tree -> inserting a node in the root list.
+Uniting two Fibonacci heaps: It simply concatenates the root lists of H1 and H2 and then determines the new minimum node.
+Extracting the min node also does the consolidation of the tree: takes all the children of the min node and puts them in the root list. Takes the left node of min and makes it the new min. and the runs consolidate.
+consolidation: the purpose is to have different degrees  for all the nodes in the root list.
+1. Find two roots x and y in the root list with the same degree. Without loss of generality, let x:key<=y:key. Start from root (x), and go to right (y).
+2. Link y to x: remove y from the root list, and make y a child of x by calling the FIB-HEAP-LINK procedure. This procedure increments the attribute x:degree and clears the mark on y. 
+Decreasing the value of a key: everything stays the same if the min heap prop is not violated. if it is: the decreased node is put in the root list. It's parent is checked for mark.
+if mark then the parent is also moved to the root list. This propagates up the tree until an unmarked node is found. If parent is not marked, it is marked now.
+Deleting a node -> decrease its value to minus infinite and extract it from the tree.
+
+33) van emde boas trees: the keys must be integers in the range 0 to n-1, with no duplicates allowed.
+Van Emde Boas trees are just about the fastest priority queues around.
+u = universe size = range of possible values
+proto bEB is at p 539, this is highly recursive. It supposes that sqrt(u) is always an integer. Operations like isMember, minimum, successor, insert, delete have pseudocode at 540.
+vEB -> universe is a power of 2. When this is not true, the array is split in 2 integers, one under the middle and the other immediately after the middle. The  structure contains the universe size u, 
+elements min ( minimum element in the vEB tree) and max (max element in the vEB tree), a pointer summary and a pointer to clusters. the element stored in min does not appear in any of the recursive clusters.
+the structure is complex @548. see second paragraph from 547 for a beginning of the explanation.
+Ops: min/max elem are easy, isMember @550; successor @551; predecessor @552 (these ops depend on the min and max elems and are not too hard to understand); insert @553; delete @554
+
+34) data structures for disjoint (no common elems) sets: with linked list is piece of cake @564.; with disjoint set forests @568
+The thing about these structures is that they support a couple of operations.
+One of the many applications of disjoint-set data structures arises in determining the connected components of an undirected graph.
+
+35) Graphs can be represented as adjancency lists (1 list of vertices and each elem has a list of vertices it is connected to) or matrixes (the vertices are on the horizontal and on the vertical).
+Breadth first search: there is a source node and from that node you go to all of its neighbors. 
+Depth first search: from the source you go into its first adjacent node and so on till you reach the end. Then go up one level and explore the next child...
+Breadth-first search usually serves to find shortest path distances (and the associated predecessor subgraph) from a given source. 
+Depth-first search is often a subroutine in another algorithm, as we shall see later in this chapter. This algo allows us to classify the edges of a graph in 4 types: tree, back, forward, cross (p. 630).
+Topological sort = sorting a directed acyclic graph by ordering of its vertices along a horizontal line so that all directed edges go from left to right. Must have dfs first. (just sort the vertices based on
+the end time).
+Strongly connected components - a set of vertices with edges between them in such a way that any 2 vertices are reachable from each other.
+
+Started numbering according to the book
+23) Minimum Spanning trees, for a weighted graph, a tree that connects all the vertices with the minimal weight.
+
+23.1 all algos are greedy
+cut = a partitioning of a graph in2/. light edge = the edge with the lowest weight that crosses the cut.
+
+23.2 Kruskal algo: The algorithm considers each edge in sorted order by weight. An arrow points to the edge under consideration at each step of the algorithm. If the edge joins two
+distinct trees(vertices) in the forest (graph), it is added to the forest, thereby merging the two trees.
+Prim’s algorithm p656: starts from the smallest element in the graph. At each step of the algorithm, the vertices in the tree determine a cut of the graph, and a light edge crossing the cut
+is added to the tree. Always choose the light edge, even if it is an edge of the previous vertex, not of the current one.
+
+24 Single-Source Shortest Paths
+The algos work well as long as you don't have negative-weight cycles in the path. Dijkstra requires that the weights are >= 0.
+we can assume that when we are finding shortest paths, they have no cycles
+relaxation technique: We call v:d a shortest-path estimate. If v.d>u.d+w(u,v) then v.d = u.d+w(u,v) and v.parent=u
+24.1 The Bellman-Ford algorithm
+see implementation
+24.2 Single-source shortest paths in directed acyclic graphs
+faster than bellman ford, but requires the graph is topologically sorted. We make just one pass over the vertices in the topologically sorted order. As we process each vertex, we relax each 
+edge that leaves the vertex.
+24.3 Dijkstra’s algorithm p658
+solves the single-source shortest-paths problem on a weighted, directed graph, weights are nonnegative.
+
+
+
+25 All-Pairs Shortest Paths 684
+we are given a weighted, directed graph with a weight function. We wish to find, for every pair of vertices a shortest (least-weight) path fromuto , where the weight of a path is the sum of 
+the weights of its constituent edges.
+
+25.1 Shortest paths and matrix multiplication - dynamic programming solution, not implemented
+negative-weight edges may be present, but we assume that there are no negative-weight cycles.
+
+25.2 The Floyd-Warshall algorithm 693 - dynamic programming solution, not implemented
+negative-weight edges may be present, but we assume that there are no negative-weight cycles.
+We define the transitive closure of G as the graph where the edges are only those for which there is a path from vertex i to vertex j in G. 697
+
+25.3 Johnson’s algorithm for sparse graphs 700
+For sparse graphs, it is asymptotically faster than either repeated squaring of matrices or the Floyd-Warshall algorithm.
+Johnson’s algorithm uses as subroutines both Dijkstra’s algorithm and the Bellman-Ford algorithm
+If all edge weights are nonnegative we can find shortest paths between all pairs of vertices by running Dijkstra’s algorithm once from each vertex; with the Fibonacci-heap min-priority queue
+If G has negative-weight edges but no negative-weight cycles by reweighting.
+
+
+
+26.1 Flow networks 709
+A flow network is a directed graph in which each edge has a non negative capacity. There are no antiparalel edges (in the reverse direction (v1, v2) and (v2, v1)). If you have such an edge, 
+just insert a new vertex and route that capacity through it. There is a source and a sink.
+The capacity constraint simply says that the flow from one vertex to another must be nonnegative and must not exceed the given capacity. 
+The flow-conservation property says "flow in equals flow out".
+If you have a multiple-source, multiple-sink maximum-flow problem then create a supersource (with infinite capacities) to each of the sources. Do the same for the sinks.
+
+26.2 The Ford-Fulkerson method 714
+Residual networks
+the residual network Gf is similar to a flow network with capacities given by cf. It does not satisfy our definition of a flow network because it may
+contain both an edge and its reversal. the values of the capacities of the residual network are obtained by substraction flow from capacity in the original network.
+A flow in a residual network provides a roadmap for adding flow to the original flow network.
+Augmenting paths
+an augmenting path p is a simple path from s to t in the residual network Gf
+let f be a flow in G and f' a flow in the residual graph G'. the augmentation of flow f by f' -> f(u,v) + f'(u,v)-f'(u,v)
+The augmentation can only be done for a path and for that path you define the residual capacity of the path (that is the minimum capacity for an edge in the residual flow path).
+Cuts of flow networks
+a flow is maximum if and only if its residual network contains no augmenting path.
+A cut (S; T)  of flow network G(V; E) is a partition of V into S and T = V-S such that s included in S and t included in T
+Capacity of the cut = sum of capacities going over the cut from s to t
+flow of the cut = sum of flow going over the cut from s to t - sum of flow from t to s
+A minimum cut of a network is a cut whose capacity is minimum over all cuts of the network.
+FORD-FULKERSON-METHOD(G;s;t)
+init flow to 0
+while there exists an augmenting path p in the residual network Gf
+	augment flowf along p
+return f
+The basic Ford-Fulkerson algorithm @724.
+The Edmonds-Karp algorithm = a ford fulkerson where to find the augmentation path is discovered by doing a spf (breadth first) first.
+
+26.3 Maximum bipartite matching 732
+bipartite graph=http://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Simple-bipartite-graph.svg/220px-Simple-bipartite-graph.svg.png
+Maximum matching: you have 2 disjoint vertices groups in a graph. These have edges between them. The maximum matching is the max no of edges that are 1 to 1 between the 2 groups. see 733.
+G' is called a corresponding flow network and it is the same bipartite graph in which you add a source and a sink.
+a maximum matching in a bipartite graph G corresponds to a maximum flow in its corresponding flow network G', and we can therefore compute a maximum matching in G by running a maximum-flow algorithm on G'
+
+26.4 Push-relabel algorithms see proper explanation at 736
+this is quite a complex algo, it involves relabeling (increasing the heights of the vertices) and the push that moves flow from vertices at higher ground to lower ground. The flow takes the whole 
+capacity of the edge.
+We fix the height of the source at V and the height of the sink at 0. All other vertex heights start at 0 and increase with time.
+The algorithm first sends as much flow as possible downhill from the source toward the sink. The amount it sends is exactly enough to fill each outgoing pipe from the source to capacity
+
+26.5 The relabel-to-front algorithm 748
+The relabel-to-front algorithm maintains a list of the vertices in the network. Beginning at the front, the algorithm scans the list, repeatedly selecting an overflowing vertex u and then 
+“discharging” it, that is, performing push and relabel operations untiluno longer has a positive excess. Whenever we relabel a vertex, we move it to the front of the list 
+(hence the name “relabel-to-front”) and the algorithm begins its scan anew.
+The admissible network consists of those edges through which we can push flow. (heigh of source is more that dest and the capacity is available).
+neighbor list u.N for a vertex u in V is a singly linked list of the neighbors of u in G.
+An overflowing vertex u is discharged by pushing all of its excess flow through admissible edges to neighboring vertices, relabeling u as necessary to cause edges leaving u to become admissible. see 752
+
+
+
+27 Multithreaded Algorithms 772
+dynamic-multithreading environments support two features: nested parallelism and parallel loops.
+27.1 The basics of dynamic multithreading 774
+Nested parallelism occurs when the keyword spawn precedes a procedure call
+multiplying  a n*n	nmatrix by a n vector can be paralelized
+27.2 Multithreaded matrix multiplication
+27.3 Multithreaded merge sort 797
+the sort is paralelized and also the merge
+
+
+28 Matrix Operations 813
+A set of linear ecuations can be put in matrices and solved via LUP (lower/upper triangular and permutarion matrix) solving (this is a stable number technique, 
+meaning that you don't have problems with the floating point).  This means decomposing in such a way that PA=LU.
+The solving algo is at 817, but the actual decomposition is also important.
+It is done by gaussian elimination @819. P is introduced because LU suffers from the possibility of div by 0.
+LU decomposition algo @ 821. operation is illustrated @822.
+LUP decomposition @824.
+28.2 Inverting matrices @827.
+To calculate the inverse matrix just do a matrix multiplication with LUP decomposition and resulting in I.
+28.3 Symmetric positive-definite matrices and least-squares approximation @832
+these matrices don't require LUP decomposition, LU is enough.
+They can be used to compute the Least-squares approximation.
+
+29 Linear Programming 843
+Applications @844 and @849.
+If we can specify the objective as a linear function of certain variables, and if we can specify the constraints on resources as equalities 
+or inequalities on those variables, then we have a linear programming problem.
+Really nice explanation @847
+optimal solution = a point that has the maximum objective value (any point of the objective function).
+feasible region = region in which all the given constraints (linear inequalities) are satisfied.
+the function that we want to maximize = objective function
+an optimal solution to the linear program occurs at a vertex or line of the feasible region. If there's a vertex => only 1 optimal solution, if line there are multiple optimal solutions.
+When the space is multidimensional we call the feasible region formed by the intersection of these half-spaces  a simplex. The simplex is convex.
+29.1 Standard and slack forms @850
+In standard form, all the constraints are inequalities, whereas in slack form, all constraints are equalities
+If a linear program has some feasible solutions but does not have a finite optimal objective value, we say that the linear program is unbounded.
+sometimes it might be necessary to convert a linear problem to the standard form. see 852
+see 854 for conversion from standard to slack
+29.2 Formulating problems as linear programs 859
+We can formulate the single-source shortest-paths problem as a linear program.
+Next, we express the maximum-flow problem as a linear program
+Minimum-cost flow
+Multicommodity flow (think of a minimum cost flow problem, but instead of only one thing flowing, there are more...)
+29.3 The simplex algorithm 864
+The simplex algorithm takes as input a linear program and returns an optimal solution. It starts at some vertex of the simplex and performs a sequence of iterations. 
+In each iteration, it moves along an edge of the simplex from a current vertex to a neighboring vertex whose objective value is no smaller than that of the current vertex 
+(and usually is larger.) The simplex algorithm terminates when it reaches a local maximum, which is a vertex from which all neighboring vertices have a smaller objective value. 
+Because the feasible region is convex and the objective function is linear, this local optimum is actually a global optimum.
+The algo uses the slack form. It iterates over the ecuations and creates a basic solution (that is all the variables in the right are init with 0). The pivoting is done.
+see rest of explanation @866.
+algo for pivoting @869.
+simplex algo at 871.
+29.5 The initial basic feasible solution @886
+In this section, we first describe how to test whether a linear program is feasible, and if it is, how to produce a slack form for which the basic solution is feasible.
+algo @887.
+
+
+
+30 Polynomials and the FFT 898
+a lot of math... basically it is used to multiply 2 polinoms in n*logn time
+algo @911; an improved version is @917
+
+31 Number-Theoretic Algorithms 926
+I think that some of these thingies are already implemented more elegantly in the api in java.math.BigInteger. Check it out for any kind of number ops.
+some math intro at the beginning (divisors, greatest common divisor);
+2 numbers are relatively prime if gcd is 1
+31.2 Greatest common divisor 933
+implemented as euclid in ro.horia.misc
+in api: java.math.BigInteger.gcd(BigInteger val)
+31.3 Modular arithmetic 939
+group theory
+31.4 Solving modular linear equations 946
+implemented in in ro.horia.misc.NumberTheoreticAlgos
+31.5 The Chinese remainder theorem 950
+not all that interesting...
+31.6 Powers of an element 954
+modular exponentiation = a^b mod n
+implemented in ro.horia.misc.NumberTheoreticAlgos
+31.7 The RSA public-key cryptosystem
+there's the public key and the secret key. m = p(s(m)) or m = s(p(m)), m= message. p and s are inverse functions
+how the RSA encryption is made @962.
+31.8 Primality testing 965
+we consider the problem of finding large primes
+a pseudoprime generator is in the api BigInteger.probablePrime
+The Miller-Rabin randomized primality test uses witness @969 and algo is @970. the is still a tiny change that the returned number is not prime.
+31.9 Integer factorization @975
+to decompose an integer into a product of primes. Trial division by all integers up to R is guaranteed to factor completely any number up to R^2.
+Pollard’s rho heuristic expands the space to R^4 
+
+32 String Matching 985
+all about string matching: representative algos:Rabin-Karp , Finite automaton, Knuth-Morris-Pratt All of these do preprocessing.
+java pattern/matcher implement Boyer–Moore
+the naive approach is inefficient because it doesn't reuse the knowledge from previous comparisons.
+32.2 The Rabin-Karp algorithm 990
+
+33 Computational Geometry 1014
+A convex combination of two distinct points is any point on the line between the 2 points.
+the chapter introduces vectors, segments and lines; 
+determine if we have clockwise/counterclockwise vectors: if cross product is positive=>clockwise see explanation @1017
+Determining whether consecutive segments turn left or right with the same logic from previous line
+Determining whether two line segments intersect
+implementation in ro.horia.misc.CompGeometry
+33.2 Determining whether any pair of segments intersects 1021
+the process is called sweeping: you have a vertical line that moves from left to right. This line keeps track of the segments it is intersecting. They are ordered by vertical position (y).
+The order changes when 2 segments intersect. the order can be stored in a red-black tree. algo @1025 The algo only checks the endpoints of the segments.
+33.3 Finding the convex hull 1029
+The convex hull of a set Q of points, denoted by CH(Q), is the smallest convex polygon P for which each point in Q is either on the boundary of P or in its interior.
+Both algorithms output the vertices of the convex hull in counterclockwise order.
+Graham’s scan: starts from bottom point and links this one with all the points. the rightmost line is kept. Then, a line is drawn to the next point. Another line is drawn to the point after that.
+	if the prev line is not rightmost, it is discarded... algo @1031
+Jarvis’s march: package wrapping, imagine you're wrapping the point in paper, you come with the paper from the exterior and then bring it around the point. When the paper bends, that point is on the hull.
+incremental method
+divide-and-conquer method
+prune-and-search method
+33.4 Finding the closest pair of points 1039
+pseudocode not present, but it is done with divide and conquer.
+
+
+34 NP-Completeness 1048
+A lot of theory about proving that a problem in NPC.
+polinomial time = worst-case running time O(n^k). for some constant k,where n is the size of the input to the problem.
+The class NP consists of those problems that are “verifiable” in polynomial time. (we could verify a solution in p time).
+It is important to recognize these problems because no efficient algorithm is likely to exist
+a npc cannot be reduced to a p problem.
+Decision problems vs. optimization problems -> decision problems are npc (be careful that sometimes you have optimization problems masked as decision probs)
+Shortest vs. longest simple paths (np complete)
+Euler tour (visiting all the edges) vs. hamiltonian cycle (visiting all the vertices once in order to form a circle) np complete
+34.5.1 The clique problem 1086
+34.5.2 The vertex-cover problem 1089
+34.5.4 The traveling-salesman problem 1096
+34.5.5 The subset-sum problem 1097
+http://en.wikipedia.org/wiki/List_of_NP-complete_problems
+
+35 Approximation Algorithms 1106
+Even if a problem is NP-complete, there may be hope: isolate special cases that can be solved in p time or find near-optimal solutions in polynomial time
+we have polynomial-time approximation algorithms for NP-complete problems
+	35.1 The vertex-cover problem 1108 has an approximation ratio of 2 (the solution will be at most 2 times worse than the optimal solution).
+	35.2 The traveling-salesman problem 1111
+requires to find a hamiltonian cycle. Builds a MST and then traverses it. approx ratio is again 2.
+	35.3 The set-covering problem 1117
+As a simple example, suppose that X represents a set of skills that are needed to solve a problem and 
+that we have a given set of people available to work on the problem. We wish to form a committee, containing as few people as possible,
+such that for every requisite skill in X, at least one member of the committee has that skill. In the decision version of the set-covering problem, we ask whether a
+covering exists with size at most k ,where k is an additional parameter specified in the problem instance.
+a greedy pseudocode is at 1119.
+	35.4 Randomization and linear programming 1123
+Approximating weighted vertex cover using linear programming
+	35.5 The subset-sum problem 1128
+an instance of the subset-sum problem is a pair (S, t), where S is a set (x1;x2;:::;xn) of positive integers and t is a positive integer. This decision problem asks whether there exists a subset of S 
+that adds up exactly to the target value t.
+For example, we may have a truck that can carry no more than t pounds, and n different boxes to ship, the ith of which weighs xi pounds. We wish to fill the truck with as
+heavy a load as possible without exceeding the given weight limit.
+there is an exponential-time exact algorithm-> computes iteratively all the subsets that do not exceed t. algo @1129
+p time algo @1131
