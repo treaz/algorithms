@@ -65,7 +65,7 @@ First prove that the problem can be broken down into subproblems (by making a ch
 Consider this choice optimal.
 Find the resulting subproblems and think about how to characterize them. (they need to be similar to the original problem).
 Show that the subproblems must also be optimal (this is trivial). You do so by supposing that each of the subproblem solutions is not
-	optimal and then deriving a contradiction. In particular, by “cutting out” the nonoptimal solution to each subproblem and “pasting in” the optimal one, 
+	optimal and then deriving a contradiction. In particular, by ï¿½cutting outï¿½ the nonoptimal solution to each subproblem and ï¿½pasting inï¿½ the optimal one, 
 	you show that you can get a better solution to the original problem, thus contradicting your supposition that you already had an optimal solution.
 Optimal substructure is only possible if you have independent subproblems (We mean that the solution to one subproblem does not affect/restrict the solution to another subproblem of the same problem.
 25) DP -> overlapping subproblems -> a recursive algo revisits the same problems repeatedly.
@@ -97,7 +97,7 @@ Insertion is complex but I've implemented it, deletion (p 500 bottom) is even ha
 32) Fibonacci heaps. Fibonacci heaps are especially desirable when the number of EXTRACT-MIN and DELETE operations is small relative to the number of other operations performed. Or when union is done.
 A Fibonacci heap is a collection of rooted trees that are min-heap ordered.That is, each tree obeys themin-heap property: the key of a node is greater than or equal to the key of its parent.
 each node x contains a pointer x.p to its parent and a pointer x:child to only one of its children. The children of x are linked together in a circular, doubly linked list, 
-which we call the child list of x. Each child y in a child list has pointers y:left and y:right that point to y’s left and right siblings.
+which we call the child list of x. Each child y in a child list has pointers y:left and y:right that point to yï¿½s left and right siblings.
 We access a given Fibonacci heapHby a pointerH:minto the root of a tree containing the minimum key; we call this node the minimum node of the Fibonacci heap.
 the degree of the node=number of children.
 The roots of all the trees in a Fibonacci heap are linked together using their left and right pointers into a circular, doubly linked list called the root list
@@ -141,7 +141,7 @@ cut = a partitioning of a graph in2/. light edge = the edge with the lowest weig
 
 23.2 Kruskal algo: The algorithm considers each edge in sorted order by weight. An arrow points to the edge under consideration at each step of the algorithm. If the edge joins two
 distinct trees(vertices) in the forest (graph), it is added to the forest, thereby merging the two trees.
-Prim’s algorithm p656: starts from the smallest element in the graph. At each step of the algorithm, the vertices in the tree determine a cut of the graph, and a light edge crossing the cut
+Primï¿½s algorithm p656: starts from the smallest element in the graph. At each step of the algorithm, the vertices in the tree determine a cut of the graph, and a light edge crossing the cut
 is added to the tree. Always choose the light edge, even if it is an edge of the previous vertex, not of the current one.
 
 24 Single-Source Shortest Paths
@@ -153,7 +153,7 @@ see implementation
 24.2 Single-source shortest paths in directed acyclic graphs
 faster than bellman ford, but requires the graph is topologically sorted. We make just one pass over the vertices in the topologically sorted order. As we process each vertex, we relax each 
 edge that leaves the vertex.
-24.3 Dijkstra’s algorithm p658
+24.3 Dijkstraï¿½s algorithm p658
 solves the single-source shortest-paths problem on a weighted, directed graph, weights are nonnegative.
 
 
@@ -169,10 +169,10 @@ negative-weight edges may be present, but we assume that there are no negative-w
 negative-weight edges may be present, but we assume that there are no negative-weight cycles.
 We define the transitive closure of G as the graph where the edges are only those for which there is a path from vertex i to vertex j in G. 697
 
-25.3 Johnson’s algorithm for sparse graphs 700
+25.3 Johnsonï¿½s algorithm for sparse graphs 700
 For sparse graphs, it is asymptotically faster than either repeated squaring of matrices or the Floyd-Warshall algorithm.
-Johnson’s algorithm uses as subroutines both Dijkstra’s algorithm and the Bellman-Ford algorithm
-If all edge weights are nonnegative we can find shortest paths between all pairs of vertices by running Dijkstra’s algorithm once from each vertex; with the Fibonacci-heap min-priority queue
+Johnsonï¿½s algorithm uses as subroutines both Dijkstraï¿½s algorithm and the Bellman-Ford algorithm
+If all edge weights are nonnegative we can find shortest paths between all pairs of vertices by running Dijkstraï¿½s algorithm once from each vertex; with the Fibonacci-heap min-priority queue
 If G has negative-weight edges but no negative-weight cycles by reweighting.
 
 
@@ -221,8 +221,8 @@ The algorithm first sends as much flow as possible downhill from the source towa
 
 26.5 The relabel-to-front algorithm 748
 The relabel-to-front algorithm maintains a list of the vertices in the network. Beginning at the front, the algorithm scans the list, repeatedly selecting an overflowing vertex u and then 
-“discharging” it, that is, performing push and relabel operations untiluno longer has a positive excess. Whenever we relabel a vertex, we move it to the front of the list 
-(hence the name “relabel-to-front”) and the algorithm begins its scan anew.
+ï¿½dischargingï¿½ it, that is, performing push and relabel operations untiluno longer has a positive excess. Whenever we relabel a vertex, we move it to the front of the list 
+(hence the name ï¿½relabel-to-frontï¿½) and the algorithm begins its scan anew.
 The admissible network consists of those edges through which we can push flow. (heigh of source is more that dest and the capacity is available).
 neighbor list u.N for a vertex u in V is a singly linked list of the neighbors of u in G.
 An overflowing vertex u is discharged by pushing all of its excess flow through admissible edges to neighboring vertices, relabeling u as necessary to cause edges leaving u to become admissible. see 752
@@ -296,17 +296,17 @@ I think that some of these thingies are already implemented more elegantly in th
 some math intro at the beginning (divisors, greatest common divisor);
 2 numbers are relatively prime if gcd is 1
 31.2 Greatest common divisor 933
-implemented as euclid in ro.horia.misc
+implemented as euclid in com.horiaconstantin.misc
 in api: java.math.BigInteger.gcd(BigInteger val)
 31.3 Modular arithmetic 939
 group theory
 31.4 Solving modular linear equations 946
-implemented in in ro.horia.misc.NumberTheoreticAlgos
+implemented in in com.horiaconstantin.misc.NumberTheoreticAlgos
 31.5 The Chinese remainder theorem 950
 not all that interesting...
 31.6 Powers of an element 954
 modular exponentiation = a^b mod n
-implemented in ro.horia.misc.NumberTheoreticAlgos
+implemented in com.horiaconstantin.misc.NumberTheoreticAlgos
 31.7 The RSA public-key cryptosystem
 there's the public key and the secret key. m = p(s(m)) or m = s(p(m)), m= message. p and s are inverse functions
 how the RSA encryption is made @962.
@@ -316,11 +316,11 @@ a pseudoprime generator is in the api BigInteger.probablePrime
 The Miller-Rabin randomized primality test uses witness @969 and algo is @970. the is still a tiny change that the returned number is not prime.
 31.9 Integer factorization @975
 to decompose an integer into a product of primes. Trial division by all integers up to R is guaranteed to factor completely any number up to R^2.
-Pollard’s rho heuristic expands the space to R^4 
+Pollardï¿½s rho heuristic expands the space to R^4 
 
 32 String Matching 985
 all about string matching: representative algos:Rabin-Karp , Finite automaton, Knuth-Morris-Pratt All of these do preprocessing.
-java pattern/matcher implement Boyer–Moore
+java pattern/matcher implement Boyerï¿½Moore
 the naive approach is inefficient because it doesn't reuse the knowledge from previous comparisons.
 32.2 The Rabin-Karp algorithm 990
 
@@ -330,16 +330,16 @@ the chapter introduces vectors, segments and lines;
 determine if we have clockwise/counterclockwise vectors: if cross product is positive=>clockwise see explanation @1017
 Determining whether consecutive segments turn left or right with the same logic from previous line
 Determining whether two line segments intersect
-implementation in ro.horia.misc.CompGeometry
+implementation in com.horiaconstantin.misc.CompGeometry
 33.2 Determining whether any pair of segments intersects 1021
 the process is called sweeping: you have a vertical line that moves from left to right. This line keeps track of the segments it is intersecting. They are ordered by vertical position (y).
 The order changes when 2 segments intersect. the order can be stored in a red-black tree. algo @1025 The algo only checks the endpoints of the segments.
 33.3 Finding the convex hull 1029
 The convex hull of a set Q of points, denoted by CH(Q), is the smallest convex polygon P for which each point in Q is either on the boundary of P or in its interior.
 Both algorithms output the vertices of the convex hull in counterclockwise order.
-Graham’s scan: starts from bottom point and links this one with all the points. the rightmost line is kept. Then, a line is drawn to the next point. Another line is drawn to the point after that.
+Grahamï¿½s scan: starts from bottom point and links this one with all the points. the rightmost line is kept. Then, a line is drawn to the next point. Another line is drawn to the point after that.
 	if the prev line is not rightmost, it is discarded... algo @1031
-Jarvis’s march: package wrapping, imagine you're wrapping the point in paper, you come with the paper from the exterior and then bring it around the point. When the paper bends, that point is on the hull.
+Jarvisï¿½s march: package wrapping, imagine you're wrapping the point in paper, you come with the paper from the exterior and then bring it around the point. When the paper bends, that point is on the hull.
 incremental method
 divide-and-conquer method
 prune-and-search method
@@ -350,7 +350,7 @@ pseudocode not present, but it is done with divide and conquer.
 34 NP-Completeness 1048
 A lot of theory about proving that a problem in NPC.
 polinomial time = worst-case running time O(n^k). for some constant k,where n is the size of the input to the problem.
-The class NP consists of those problems that are “verifiable” in polynomial time. (we could verify a solution in p time).
+The class NP consists of those problems that are ï¿½verifiableï¿½ in polynomial time. (we could verify a solution in p time).
 It is important to recognize these problems because no efficient algorithm is likely to exist
 a npc cannot be reduced to a p problem.
 Decision problems vs. optimization problems -> decision problems are npc (be careful that sometimes you have optimization problems masked as decision probs)
