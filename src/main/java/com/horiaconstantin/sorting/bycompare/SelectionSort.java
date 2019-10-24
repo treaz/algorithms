@@ -1,8 +1,11 @@
 package com.horiaconstantin.sorting.bycompare;
 
-public class SelectionSort {
+import java.util.Objects;
 
-	public static int[] selectionSortIncreasing(int[] input) {
+public class SelectionSort implements Sort {
+
+	public int[] sort(int[] input) {
+		Objects.requireNonNull(input);
 		for (int j = 0; j < (input.length - 1); j++) {
 			int minIndex = j;
 			for (int i=j+1; i< input.length;i++) {

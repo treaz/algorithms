@@ -1,5 +1,7 @@
 package com.horiaconstantin.sorting.bycompare;
 
+import java.util.Objects;
+
 /**
  * when you use an array to implement a binary tree, you do what is called
  * "level ordered traversal of the binary tree".
@@ -14,11 +16,12 @@ package com.horiaconstantin.sorting.bycompare;
  * @author Horia Constantin
  * 
  */
-public class HeapSort {
+public class HeapSort implements Sort {
 
 	int heapSize;
 
 	public int[] sort(int[] a) {
+		Objects.requireNonNull(a);
 		int[] result = new int[a.length];
 		heapSize = a.length - 1;
 		buildMaxHeap(a);
@@ -30,10 +33,6 @@ public class HeapSort {
 			a[i] = tmp;
 			heapSize--;
 			maxHeapify(a, 0);
-		}
-		// result[0]=a[a.length - 1];
-		for (int i : result) {
-			System.out.println(i);
 		}
 		return result;
 	}
@@ -69,9 +68,6 @@ public class HeapSort {
 	 * the leaves are the nodes indexed (n/2)+1....n. These elements don't need
 	 * to be sorted as a single leaf is already sorted. In this part we just
 	 * create the maxheap using maxHeapify
-	 * 
-	 * @author Horia Constantin
-	 * @param a
 	 */
 	private void buildMaxHeap(int[] a) {
 		for (int i = (a.length - 1) / 2; i >= 0; i--) {

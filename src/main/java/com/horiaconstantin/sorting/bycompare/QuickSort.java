@@ -1,17 +1,19 @@
 package com.horiaconstantin.sorting.bycompare;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
- * Pick the last elem from the array as pivot. COmpare the elems of the arry with the pivo. THe smaller go to the left, the bigger go to the right. The pivot is put between.
+ * Pick the last elem from the array as pivot. Compare the elems of the array with the pivo. The smaller go to the left, the bigger go to the right. The pivot is put between.
  * After that call quick sort on the left ad right subarrays.
  * @author Horia Constantin
  *
  */
-public class QuickSort {
+public class QuickSort implements Sort {
 
 	
 	public int[] sort(int[] a) {
+		Objects.requireNonNull(a);
 		quicksort(a, 0, a.length - 1);
 		return a;
 	}

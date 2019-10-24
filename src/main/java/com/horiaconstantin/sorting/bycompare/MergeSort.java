@@ -1,13 +1,16 @@
 package com.horiaconstantin.sorting.bycompare;
 
-public class MergeSort {
+import java.util.Objects;
+
+public class MergeSort implements Sort {
 
 	private static int[] numbers;
 	private static int[] helper;
 
 	private static int number;
 
-	public static int[] sort(int[] values) {
+	public int[] sort(int[] values) {
+		Objects.requireNonNull(values);
 		numbers = values;
 		number = values.length;
 		helper = new int[number];
