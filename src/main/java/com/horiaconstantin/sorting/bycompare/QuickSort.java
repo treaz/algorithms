@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * Pick the last elem from the array as pivot. Compare the elems of the array with the pivo. The smaller go to the left, the bigger go to the right. The pivot is put between.
- * After that call quick sort on the left ad right subarrays.
+ * After that call quick sort on the left and right subarrays.
  * @author Horia Constantin
  *
  */
