@@ -67,14 +67,24 @@ class SortTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(classes = {HeapSort.class, InsertionSort.class, MergeSort.class,
-			QuickSort.class, SelectionSort.class})
+	@ValueSource(classes = {HeapSort.class, InsertionSort.class, MergeSort.class, SelectionSort.class})
 	void sortSameValues(Class<Sort> clazz) throws Exception {
 		Sort algo = clazz.getConstructor().newInstance();
 
 		int[] result = algo.sort(new int[]{0, 2, 2, 2, 2});
 
 		assertArrayEquals(new int[]{0, 2, 2, 2, 2}, result);
+	}
+
+	@ParameterizedTest
+	@ValueSource(classes = {HeapSort.class, InsertionSort.class, MergeSort.class,
+			QuickSort.class, SelectionSort.class})
+	void sortTwoElements(Class<Sort> clazz) throws Exception {
+		Sort algo = clazz.getConstructor().newInstance();
+
+		int[] result = algo.sort(new int[]{4, 2});
+
+		assertArrayEquals(new int[]{2, 4}, result);
 	}
 
 }
